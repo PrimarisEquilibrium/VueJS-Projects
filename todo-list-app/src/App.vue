@@ -1,47 +1,43 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+interface TodoList {
+  name: string;
+  done: boolean;
+}
+
+export default defineComponent({
+  data() {
+    return {
+      todo: "",
+      todoEntries: [] as TodoList[]
+    }
+  },
+  methods: {
+    addEntry() : void {
+      this.todoEntries = [...this.todoEntries, {name: this.todo, done: false}]
+      this.todo = ""; // Clear input box
+    }
+  }
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <h1>Todo List App</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <form @submit.prevent="addEntry()">
+    <input type="text" placeholder="Enter todo entry" v-model="todo" required>
+    <button type="submit">Add</button>
+  </form>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <div v-for="entry in todoEntries" :key="entry.name">
+    <span :class="{ done: entry.done }">{{ entry.name }}</span>
+    <input type="checkbox" v-model="entry.done">
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .done {
+    text-decoration: line-through;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
