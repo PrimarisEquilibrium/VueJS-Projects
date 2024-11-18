@@ -6,6 +6,17 @@ interface TodoEntry {
   done: boolean;
 }
 
+/**
+ * Returns a TodoEntry object.
+ * @param name The name of the todo entry.
+ */
+function createTodoEntry(name: string) : TodoEntry {
+  return {
+    name: name,
+    done: false
+  }
+}
+
 export default defineComponent({
   data() {
     return {
@@ -14,10 +25,19 @@ export default defineComponent({
     }
   },
   methods: {
+    /**
+     * Adds a todo entry to the list.
+     */
     addEntry() : void {
-      this.todoEntries = [...this.todoEntries, {name: this.todo, done: false}]
+      let newTodoEntry: TodoEntry = createTodoEntry(this.todo)
+      this.todoEntries = [...this.todoEntries, newTodoEntry]
       this.todo = ""; // Clear input box
     },
+
+    /**
+     * Deletes the specified todo entry from the list.
+     * @param entry The todo entry to be removed.
+     */
     deleteEntry(entry: TodoEntry) : void {
       this.todoEntries = this.todoEntries.filter(e => e !== entry)
     }
