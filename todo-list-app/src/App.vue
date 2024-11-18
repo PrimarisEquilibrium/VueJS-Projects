@@ -28,11 +28,13 @@ export default defineComponent({
 <template>
   <h1>Todo List App</h1>
 
+  <!-- Input for creating input entries -->
   <form @submit.prevent="addEntry()">
     <input type="text" placeholder="Enter todo entry" v-model="todo" required>
     <button type="submit">Add</button>
   </form>
 
+  <!-- Render todo entries -->
   <div v-for="entry in todoEntries" :key="entry.name">
     <span :class="{ done: entry.done }">{{ entry.name }}</span>
     <input type="checkbox" v-model="entry.done">
@@ -40,8 +42,5 @@ export default defineComponent({
   </div>
 </template>
 
-<style scoped>
-  .done {
-    text-decoration: line-through;
-  }
+<style scoped src="./styles/app.css">
 </style>
