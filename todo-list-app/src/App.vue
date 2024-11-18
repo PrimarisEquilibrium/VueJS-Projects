@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-interface TodoList {
+interface TodoEntry {
   name: string;
   done: boolean;
 }
@@ -10,7 +10,7 @@ export default defineComponent({
   data() {
     return {
       todo: "",
-      todoEntries: [] as TodoList[]
+      todoEntries: [] as TodoEntry[]
     }
   },
   methods: {
@@ -18,7 +18,7 @@ export default defineComponent({
       this.todoEntries = [...this.todoEntries, {name: this.todo, done: false}]
       this.todo = ""; // Clear input box
     },
-    deleteEntry(entry: TodoList) : void {
+    deleteEntry(entry: TodoEntry) : void {
       this.todoEntries = this.todoEntries.filter(e => e !== entry)
     }
   }
