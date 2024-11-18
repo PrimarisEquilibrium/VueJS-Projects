@@ -9,6 +9,7 @@ interface TodoEntry {
 /**
  * Returns a TodoEntry object.
  * @param name The name of the todo entry.
+ * @returns A TodoEntry object with the specified name and a done value initialized to false.
  */
 function createTodoEntry(name: string) : TodoEntry {
   return {
