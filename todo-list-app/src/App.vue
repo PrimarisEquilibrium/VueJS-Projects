@@ -17,6 +17,9 @@ export default defineComponent({
     addEntry() : void {
       this.todoEntries = [...this.todoEntries, {name: this.todo, done: false}]
       this.todo = ""; // Clear input box
+    },
+    deleteEntry(entry: TodoList) : void {
+      this.todoEntries = this.todoEntries.filter(e => e !== entry)
     }
   }
 })
@@ -33,6 +36,7 @@ export default defineComponent({
   <div v-for="entry in todoEntries" :key="entry.name">
     <span :class="{ done: entry.done }">{{ entry.name }}</span>
     <input type="checkbox" v-model="entry.done">
+    <button @click="deleteEntry(entry)">X</button>
   </div>
 </template>
 
