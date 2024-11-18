@@ -51,17 +51,19 @@ export default defineComponent({
 </script>
 
 <template>
-    <h1>Todo List App</h1>
-
-    <!-- Input for creating input entries -->
-    <form @submit.prevent="addEntry()">
-        <input type="text" placeholder="Enter todo entry" v-model="todo" required>
-        <button type="submit">Add</button>
-    </form>
-
-    <!-- Render todo entries -->
-    <div v-for="entry in todoEntries" :key="entry.name">
-        <Entry :entry="entry" :deleteEntry="deleteEntry" />
+    <div class="wrapper">
+        <h1>Todo List App</h1>
+    
+        <!-- Input for creating input entries -->
+        <form @submit.prevent="addEntry()">
+            <input class="todo-input" type="text" placeholder="Enter todo entry" v-model="todo" required>
+            <button class="todo-submit-btn" type="submit">Add</button>
+        </form>
+    
+        <!-- Render todo entries -->
+        <div v-for="entry in todoEntries" :key="entry.name">
+            <Entry :entry="entry" :deleteEntry="deleteEntry" />
+        </div>
     </div>
 </template>
 
