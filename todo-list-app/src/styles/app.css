@@ -5,7 +5,6 @@
     align-items: center;
     margin-top: 6rem;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .todo-input {
