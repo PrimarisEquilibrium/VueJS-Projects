@@ -30,12 +30,34 @@ export default defineComponent({
 </script>
 
 <template>
-    <span :class="{ done: entry.done }">{{ entry.name }}</span>
-    <input type="checkbox" v-model="entry.done">
-    <button @click="deleteEntry(entry)">X</button>
+    <div class="entry-container">
+        <span :class="{ done: entry.done }">{{ entry.name }}</span>
+        <div class="entry-input-container">
+            <input type="checkbox" v-model="entry.done">
+            <button @click="deleteEntry(entry)">X</button>
+        </div>
+    </div>
 </template>
 
 <style scoped>
+.entry-container {
+    border: 1px solid white;
+    padding: 0.75rem 1.5rem;
+    min-width: 26rem;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    margin: 0 0.5rem;
+}
+
+button {
+    padding: 0.30rem 0.5rem;
+}
+
 .done {
     text-decoration: line-through;
 }
