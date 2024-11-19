@@ -42,7 +42,7 @@ export default defineComponent({
         class="entry-container"
         :style="entryStyle"
     >
-        <span :class="{ done: entry.done }">{{ entry.name }}</span>
+        <span :class="['entry-text', { done: entry.done }]">{{ entry.name }}</span>
         <div class="entry-input-container">
             <!-- Toggle todo entry completion button -->
             <button @click="() => entry.done = !entry.done">
@@ -73,7 +73,9 @@ span {
 .entry-container {
     border: 1px solid var(--entry-color);
     padding: 0.75rem 1.5rem;
-    min-width: 26rem;
+    width: 100%;
+    max-width: 26rem;
+    text-wrap: wrap;
     margin-top: 0.5rem;
     display: flex;
     justify-content: space-between;
@@ -83,6 +85,12 @@ span {
 .entry-input-container {
     display: flex;
     align-items: center;
+}
+
+.entry-text {
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+    width: 17rem;
 }
 
 .entry-toggle {
