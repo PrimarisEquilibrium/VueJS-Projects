@@ -30,11 +30,24 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="entry-container">
+    <div :class="(entry.done) ? 'entry-container inactive-entry' : 'entry-container'">
         <span :class="{ done: entry.done }">{{ entry.name }}</span>
         <div class="entry-input-container">
-            <input type="checkbox" v-model="entry.done">
-            <button @click="deleteEntry(entry)">X</button>
+            <div class="entry-toggle">
+                <font-awesome-icon 
+                    @click="() => entry.done = !entry.done" 
+                    :class="(entry.done) ? 'icon icon-inactive' : 'icon'" 
+                    :icon="['fas', 'circle-check']" 
+                    size="2x"
+                />
+            </div>
+            <button @click="deleteEntry(entry)">
+                <font-awesome-icon 
+                    :class="(entry.done) ? 'icon icon-inactive' : 'icon'" 
+                    :icon="['fas', 'circle-xmark']" 
+                    size="2x" 
+                />
+            </button>
         </div>
     </div>
 </template>
@@ -50,12 +63,33 @@ export default defineComponent({
     align-items: center;
 }
 
-input {
-    margin: 0 0.5rem;
+.entry-input-container{
+    display: flex;
+    align-items: center;
+}
+
+.entry-toggle {
+    margin-right: 0.75rem;
+}
+
+/* Styling for inactive todo list entries */
+.inactive-entry {
+    border: 1px solid var(--secondary-color);
 }
 
 button {
-    padding: 0.30rem 0.5rem;
+    border: none;
+}
+
+.icon {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+}
+
+.icon-inactive {
+    color: var(--secondary-color);
 }
 
 .done {
