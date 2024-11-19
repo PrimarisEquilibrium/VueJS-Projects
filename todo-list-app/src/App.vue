@@ -46,6 +46,12 @@ export default defineComponent({
         deleteEntry(entry: TodoEntry): void {
             this.todoEntries = this.todoEntries.filter(e => e !== entry)
         }
+    },
+    computed: {
+        // Returns entries that are completed, i.e. done is true
+        completedEntries() {
+            return this.todoEntries.filter(todo => todo.done)
+        }
     }
 })
 </script>
@@ -56,9 +62,14 @@ export default defineComponent({
     
         <!-- Input for creating input entries -->
         <form @submit.prevent="addEntry()">
-            <input class="todo-input" type="text" placeholder="Enter todo entry" v-model="todo" required>
-            <button class="todo-submit-btn" type="submit">Add</button>
+            <input type="text" placeholder="Enter todo entry" v-model="todo" required>
+            <button class="submit-btn" type="submit">Add</button>
         </form>
+
+        <div class="stats">
+            <span>Entries: {{ todoEntries.length }}</span>
+            <span>Completed: {{ completedEntries.length }}</span>
+        </div>
     
         <!-- Render todo entries -->
         <div v-for="entry in todoEntries" :key="entry.name">
@@ -67,4 +78,42 @@ export default defineComponent({
     </div>
 </template>
 
-<style scoped src="./styles/app.css"></style>
+<style scoped>
+.wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 6rem;
+    flex-direction: column;
+}
+
+input {
+    border: 1px solid var(--primary-color);
+    border-top-left-radius: 4rem;
+    border-bottom-left-radius: 4rem;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    margin-top: 1.25rem;
+    padding: 0.75rem 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.submit-btn {
+    border: 1px solid var(--primary-color);
+    border-top-right-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+}
+
+.stats {
+    display: flex;
+    margin-bottom: 1.25rem;
+}
+
+span {
+    margin: 0 2rem;
+}
+</style>
