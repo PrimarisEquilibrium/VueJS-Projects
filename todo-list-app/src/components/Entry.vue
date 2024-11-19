@@ -25,36 +25,53 @@ export default defineComponent({
          * A function that removes the given TodoEntry object from the TodoList.
          */
         deleteEntry: Function as PropType<(entry: TodoEntry) => void>
+    },
+    computed: {
+        entryStyle() {
+            return {
+                '--entry-color': this.entry.done ? 'var(--secondary-color)' : 'var(--primary-color)'
+            }
+        }
     }
 })
 </script>
 
 <template>
-    <div :class="(entry.done) ? 'entry-container inactive-entry' : 'entry-container'">
+    <!-- Determine the todo entry color based on the entry.done state and assign it to --entry-color -->
+    <div 
+        class="entry-container"
+        :style="entryStyle"
+    >
         <span :class="{ done: entry.done }">{{ entry.name }}</span>
         <div class="entry-input-container">
-            <div class="entry-toggle">
-                <font-awesome-icon 
-                    @click="() => entry.done = !entry.done" 
-                    :class="(entry.done) ? 'icon icon-inactive' : 'icon'" 
-                    :icon="['fas', 'circle-check']" 
-                    size="2x"
-                />
-            </div>
+            <!-- Toggle todo entry completion button -->
+            <button @click="() => entry.done = !entry.done">
+                <font-awesome-icon class="icon" :icon="['fas', 'circle-check']" size="2x" />
+            </button>
+            <!-- Delete entry button -->
             <button @click="deleteEntry(entry)">
-                <font-awesome-icon 
-                    :class="(entry.done) ? 'icon icon-inactive' : 'icon'" 
-                    :icon="['fas', 'circle-xmark']" 
-                    size="2x" 
-                />
+                <font-awesome-icon class="icon" :icon="['fas', 'circle-xmark']" size="2x" />
             </button>
         </div>
     </div>
 </template>
 
 <style scoped>
+* {
+    transition: border 0.3s ease, color 0.3s ease;
+}
+
+button {
+    border: none;
+    margin-left: 0.5rem;
+}
+
+span {
+    color: var(--entry-color);
+}
+
 .entry-container {
-    border: 1px solid white;
+    border: 1px solid var(--entry-color);
     padding: 0.75rem 1.5rem;
     min-width: 26rem;
     margin-top: 0.5rem;
@@ -63,7 +80,7 @@ export default defineComponent({
     align-items: center;
 }
 
-.entry-input-container{
+.entry-input-container {
     display: flex;
     align-items: center;
 }
@@ -72,24 +89,11 @@ export default defineComponent({
     margin-right: 0.75rem;
 }
 
-/* Styling for inactive todo list entries */
-.inactive-entry {
-    border: 1px solid var(--secondary-color);
-}
-
-button {
-    border: none;
-}
-
 .icon {
     background-color: var(--background-color);
-    color: var(--primary-color);
+    color: var(--entry-color);
     border: none;
     cursor: pointer;
-}
-
-.icon-inactive {
-    color: var(--secondary-color);
 }
 
 .done {
