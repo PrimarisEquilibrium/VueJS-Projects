@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <!-- Determine the todo entry color based on the entry.done state and assign it to --entry-color -->
+    <!-- Determine the todo entry color based on the entry.done state and assign it to the entry-color css variable -->
     <div 
         class="entry-container"
         :style="entryStyle"
